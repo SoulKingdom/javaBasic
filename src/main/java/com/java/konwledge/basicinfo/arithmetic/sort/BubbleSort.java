@@ -2,8 +2,6 @@ package com.java.konwledge.basicinfo.arithmetic.sort;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-
 /**
  *  @dept 上海软件研发中心
  *  @description 冒泡排序实现
@@ -21,8 +19,21 @@ public class BubbleSort {
      * @date 2019/11/8 9:16
      **/
     public static void bubbleSort(int[] a) {
-        //结束递归的条件
-
+        //冒泡排序，外部循环，每次循环将最大的数据移动至末尾；从小到大排序
+        for (int i = 0; i < a.length - 1; i++) {
+            //内部循环，每次互换两两进行比较和交换，最大值移至末尾之后，末尾坐标减一
+            for (int j = 0; j < a.length - 1 - i; j++) {
+                //如果前面的数比后面的数打，进行交换
+                if (a[j] > a[j + 1]) {
+                    //进行交换
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                    //交换之后进行下次比较
+                    continue;
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -35,7 +46,6 @@ public class BubbleSort {
         printSortAy(a);
         //調用冒泡排序：核心只有这一个，其他的都是废话
         bubbleSort(a);
-
         System.out.printf("after  sort:");
         //输出排序数组
         printSortAy(a);

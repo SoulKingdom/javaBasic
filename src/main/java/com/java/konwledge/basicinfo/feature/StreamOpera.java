@@ -2,12 +2,8 @@ package com.java.konwledge.basicinfo.feature;
 
 import com.java.konwledge.basicinfo.feature.entity.Person;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 
-import javax.swing.text.html.Option;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
