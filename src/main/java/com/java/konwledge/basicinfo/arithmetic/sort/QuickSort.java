@@ -2,6 +2,7 @@ package com.java.konwledge.basicinfo.arithmetic.sort;
 
 
 import lombok.extern.slf4j.Slf4j;
+
 /**
  *  @dept 上海软件研发中心
  *  @description 快速排序
@@ -10,7 +11,16 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 public class QuickSort {
-
+    /**
+     * 快速排序实现过程
+     *
+     * @dept 上海软件研发中心
+     * @param a 需要排序的数组
+     * @param l 左边标记坐标
+     * @param r 右边标记坐标
+     * @author HaoXin.Liu
+     * @date 2019/11/8 9:16
+     **/
     public static void quickSort(int[] a, int l, int r) {
         //结束递归的条件
         if (l < r) {
@@ -54,14 +64,16 @@ public class QuickSort {
 
         System.out.printf("before sort:");
         log.info(a.toString());
-        for (i = 0; i < a.length; i++) {
-            System.out.printf("%d ", a[i]);
-        }
-        System.out.printf("\n");
+        printSortAy(a);
         //調用快速排序：核心只有这一个，其他的都是废话
         quickSort(a, 0, a.length - 1);
 
         System.out.printf("after  sort:");
+        printSortAy(a);
+    }
+
+    private static void printSortAy(int[] a) {
+        int i;
         for (i = 0; i < a.length; i++) {
             System.out.printf("%d ", a[i]);
         }
