@@ -41,7 +41,6 @@ public class ChoiceSort {
     }
 
     public static void main(String[] args) {
-        int i;
         int[] a = {30, 40, 60, 10, 20, 50};
 
         System.out.printf("before sort:");

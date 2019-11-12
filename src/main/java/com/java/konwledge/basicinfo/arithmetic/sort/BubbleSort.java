@@ -37,7 +37,6 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-        int i;
         int[] a = {30, 40, 60, 10, 20, 50};
         //输出排序之前的
         System.out.printf("before sort:");
