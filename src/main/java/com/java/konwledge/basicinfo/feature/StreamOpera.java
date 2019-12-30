@@ -33,7 +33,6 @@ public class StreamOpera {
         //把字符串拼接成一个数组
         String str = Stream.of(strToAy).collect(Collectors.joining(","));
         log.info(str);
-
     }
 
     /**
@@ -197,19 +196,19 @@ public class StreamOpera {
         log.info("This list condition is: " + flagTo);
         //进行分组测试
         List<Person> personList = new ArrayList<>(2);
-        Person p =  new Person();
+        Person p = new Person();
         p.setName("p1");
         p.setClasses("1");
         p.setAge(18);
-        Person p2 =  new Person();
+        Person p2 = new Person();
         p2.setName("p2");
         p2.setClasses("1");
         p2.setAge(18);
-        Person p3 =  new Person();
+        Person p3 = new Person();
         p3.setName("p3");
         p3.setClasses("2");
         p3.setAge(19);
-        Person p4 =  new Person();
+        Person p4 = new Person();
         p4.setName("p4");
         p4.setClasses("2");
         p4.setAge(19);
@@ -217,14 +216,26 @@ public class StreamOpera {
         personList.add(p2);
         personList.add(p3);
         personList.add(p4);
-        Map<String,List<Person>> personMap = personList.stream().collect(Collectors.groupingBy(Person::getClasses));
+        personList.stream().forEach(o -> {
+            if ("p1".equals(o.getName())) {
+                o.setAge(25);
+            }
+        });
+        //输出看看是否内部数据进行更改(对象修改之后，内容指向的地址也会进行修改)
+        personList.stream().forEach(System.out::println);
+        Map<String, List<Person>> personMap = personList.stream().collect(Collectors.groupingBy(Person::getClasses));
         //分组后的数据进行输出
-       personMap.forEach((s, list1) -> {
-           System.out.println(s+":");
-           list1.stream().forEach(System.out::println);
-       });
+        personMap.forEach((s, list1) -> {
+            System.out.println(s + ":");
+            list1.stream().forEach(System.out::println);
+        });
     }
 
+    /**
+     * Stream方法具体分析
+     * 1.
+     *
+     */
     public static void main(String[] args) {
         //数组数据流操作
         arrayStream();
