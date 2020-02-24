@@ -22,4 +22,14 @@ public class Person {
      * 年龄
      */
     private Integer age;
+
+    public Person() {
+        super();
+    }
+
+    public Person(String name, String classes, Integer age) {
+        this.name = name;
+        this.classes = classes;
+        this.age = age;
+    }
 }

@@ -120,12 +120,13 @@ public class StreamOpera {
      * @date 2019/11/8 13:37
      **/
     public static void peekOperation() {
-        Stream.of("one", "two", "three", "four")
+        List<String> list = Stream.of("one", "two", "three", "four")
                 .filter(e -> e.length() > 3)
                 .peek(e -> System.out.println("Filtered value: " + e))
                 .map(String::toUpperCase)
                 .peek(e -> System.out.println("Mapped value: " + e))
                 .collect(Collectors.toList());
+        list.forEach(a -> System.out.println(a));
     }
 
     /**
@@ -232,6 +233,36 @@ public class StreamOpera {
     }
 
     /**
+     * match的使用 allMatch  anyMath noneMathc
+     *
+     * @dept 上海软件研发中心
+     * @author HaoXin.Liu
+     * @date 2019/11/11 14:48
+     **/
+    public static void matchMoreOperation() {
+        List<Person> list = new ArrayList<>(2);
+        list.add(new Person("lhx", "1503", 11));
+        list.add(new Person("zjy", "1503", 10));
+
+        boolean flag = list.stream().anyMatch(o -> {
+            if ("lhx".equals(o.getName())) {
+                return true;
+            }
+            return false;
+        });
+        //判断是否存在条件
+        if (flag) {
+            list = list.stream().filter(o -> {
+                if ("lhx".equals(o.getName())) {
+                    return true;
+                }
+                return false;
+            }).collect(Collectors.toList());
+        }
+        list.stream().forEach(System.out::print);
+    }
+
+    /**
      * Stream方法具体分析
      * 1.
      *
@@ -255,5 +286,8 @@ public class StreamOpera {
         limitSkipOpera();
         //match的操作
         matchOperation();
+        //对象匹配操作
+        matchMoreOperation();
+
     }
 }

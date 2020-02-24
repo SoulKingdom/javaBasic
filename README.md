@@ -20,6 +20,12 @@ java必须了解的基础知识整理
 ## Java8新特性（目前使用过的）
  + Java重复注解
  + lambda表达式(相当于重写接口方法并且返回重写之后的对象)
+   - 遍历操作
+   - 过滤操作
+   - 循环操作
+   - 返回特定的结果集合（limit/skip）
+   - 排序（sort/min/max/distinct）
+   - 匹配（match）
  + stream流处理的使用
    - JavaApi教学链接[https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/]
    - list，array和Map中用的比较多
