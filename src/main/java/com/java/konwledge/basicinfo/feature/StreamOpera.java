@@ -26,7 +26,7 @@ public class StreamOpera {
         //Stream流操作 1、数组操作
         String[] strAy = {"a", "b", "c"};
         //数组转换成流结构
-        Stream stream = Stream.of(strAy);
+        Stream stream;
         stream = Arrays.stream(strAy);
         stream = stream.map(o -> o + "1");
         String[] strToAy = (String[]) stream.toArray(String[]::new);
@@ -288,6 +288,7 @@ public class StreamOpera {
         matchOperation();
         //对象匹配操作
         matchMoreOperation();
+
 
     }
 }

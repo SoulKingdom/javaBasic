@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.security.MessageDigest;
 
 /**
  *  @dept 上海软件研发中心
@@ -67,7 +68,28 @@ public class IoStreamOperation {
         io.createFileWrite();
         io.createFileStream();*/
         //System.out.println("2020-01-08 09:00:00".compareTo("2020-01-08 00:00:00"));
-        String date = "09";
-        System.out.println(Integer.valueOf(date));
+       /* String date = "09";
+        System.out.println(Integer.valueOf(date));*/
+        System.out.println(getMD5("yitutech123"));
+    }
+
+
+    public static String getMD5(String message) {
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] md5Bytes = md5.digest(message.getBytes());
+            StringBuffer hexValue = new StringBuffer();
+            for (int i = 0; i < md5Bytes.length; i++) {
+                int val = ((int) md5Bytes[i]) & 0xff;
+                if (val < 16)
+                    hexValue.append("0");
+                hexValue.append(Integer.toHexString(val));
+            }
+            message = hexValue.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return message;
     }
 }
