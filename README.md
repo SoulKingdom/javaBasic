@@ -24,4 +24,20 @@ java必须了解的基础知识整理
    - JavaApi教学链接[https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/]
    - list，array和Map中用的比较多
  + 重复注解的使用
+## 线程池 ThreadPoolExecutor 测试
+### 核心参数
+ + corePoolSize 核心线程数量  设置线程数量
+ + maximumPoolSize 最大存在的线程数量
+ + keepAliveTime 核心线程工作，额外线程的存活时间
+ + unit 线程存活时间的单位
+ + workQueue 存放线程的任务缓冲队列，核心线程满之后，额外线程任务存放在序列中
+ + threadFactory 存放线程的信息格式
+ + handler 线程池对拒绝任务的处理策略：ThreadPoolExecutor四种策略方式
+   - ThreadPoolExecutor.AbortPolicy
+   - ThreadPoolExecutor.DiscardPolicy
+   - ThreadPoolExecutor.DiscardOldestPolicy
+   - ThreadPoolExecutor.CallerRunsPolicy
+   - 自定义拒绝处理方式,继承RejectedExecutionHandler
+ + 可处理线程的总数为：任务缓冲序列+最大存在线程数
+
        
