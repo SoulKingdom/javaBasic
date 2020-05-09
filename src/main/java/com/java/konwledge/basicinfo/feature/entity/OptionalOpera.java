@@ -12,6 +12,16 @@ import java.util.Optional;
  **/
 @Slf4j
 public class OptionalOpera {
+    private String name;
+
+    public String getName() {
+        return "aa";
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public static void main(String[] args) {
         Optional<String> fullName = Optional.ofNullable(null);
         //isPresent() 持有一个非null值，返回true,否则返回false
@@ -22,5 +32,9 @@ public class OptionalOpera {
         fullName = Optional.ofNullable("blockChain");
         //如果不为空则输出map对象，为空执行orElse
         log.info(fullName.map(s -> "Hey " + s + "!").orElse("Hey Stranger!"));
+    }
+
+    public void getName(String s) {
+        System.out.println(s);
     }
 }
