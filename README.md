@@ -39,5 +39,8 @@ java必须了解的基础知识整理
    - ThreadPoolExecutor.CallerRunsPolicy
    - 自定义拒绝处理方式,继承RejectedExecutionHandler
  + 可处理线程的总数为：任务缓冲序列+最大存在线程数
+ + git的使用 
+   - 回滚的使用 
+     - 
 
        

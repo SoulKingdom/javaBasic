@@ -1,5 +1,7 @@
 package com.java.konwledge.basicinfo.test;
 
+import com.java.konwledge.basicinfo.util.DateUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,8 +14,18 @@ import java.util.*;
  **/
 public class test1 {
     public static void main(String[] args) {
-        Integer w = test1.getCurrDayOfWeek(test1.formatDate(new Date()));
-        System.out.println(w);
+       /* Integer b = 501;
+        Integer i = new Integer(501);
+        int c = 501;
+        int in = 8<6?i:b;
+        System.out.println(b == c);
+        System.out.println(i == c);
+        System.out.println(i == b);*/
+        String str = DateUtils.getTodayDate();
+        // time1在time2之后true; time1在time2之前 false
+        Boolean flag = DateUtils.beforeDate("2020-05-27",DateUtils.getTodayDate());
+        System.out.println(str);
+        System.out.println(flag);
     }
     public static String formatDate(java.util.Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,4 +48,6 @@ public class test1 {
         }
         return null;
     }
+
+
 }

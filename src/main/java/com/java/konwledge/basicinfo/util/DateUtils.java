@@ -63,6 +63,22 @@ public class DateUtils {
         return false;
     }
 
+    public static boolean beforeDate(String time1, String time2) {
+        try {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateTime1 = timeFormat.parse(time1);
+            Date dateTime2 = timeFormat.parse(time2);
+
+            if (dateTime1.before(dateTime2)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     /**
      * 判断一个时间是否在另一个时间之后
      * @param time1 第一个时间
@@ -83,6 +99,25 @@ public class DateUtils {
         return false;
     }
 
+    /**
+     * 判断一个日期是否在另一个日期之后
+     * @param time1 第一个时间
+     * @param time2 第二个时间
+     * @return 判断结果 time1 > time 2 true  time1 < time 2
+     */
+    public static boolean afterDate(String time1, String time2) {
+        try {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateTime1 = timeFormat.parse(time1);
+            Date dateTime2 = timeFormat.parse(time2);
+            if (dateTime1.after(dateTime2)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /**
      * 计算时间差值（单位为秒）
      * @param time1 时间1
@@ -333,5 +368,18 @@ public class DateUtils {
         return null;
     }
 
+    /**
+     * @function string->date
+     * @params time
+     **/
+    public static Date strToDateTo(String time) {
 
+        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return timeFormat.parse(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
