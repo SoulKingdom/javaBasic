@@ -1,6 +1,7 @@
 package com.java.konwledge.basicinfo.feature;
 
 import com.java.konwledge.basicinfo.feature.entity.Person;
+import com.java.konwledge.basicinfo.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -268,6 +269,14 @@ public class StreamOpera {
      *
      */
     public static void main(String[] args) {
+        //排序方式
+        orderedMethod();
+        //时间筛选
+        dateTest();
+        //排序
+        streamSort();
+        //效率测试
+        ofStream();
         //数组数据流操作
         arrayStream();
         //集合数据流操作
@@ -288,6 +297,73 @@ public class StreamOpera {
         matchOperation();
         //对象匹配操作
         matchMoreOperation();
+
+
+    }
+
+    /**
+     * 排序方法的使用
+     */
+    private static void orderedMethod() {
+        List<Person> list = new ArrayList<>(2);
+        list.add(new Person("lhx", "1503", 11));
+        list.add(new Person("zjy", "1503", 10));
+        list.add(new Person("zxy", "1503", 12));
+
+        list = list.stream().sorted((x,y)->{
+            int ageX = x.getAge();
+            int agey = y.getAge();
+           return ageX - agey;
+        }).collect(Collectors.toList());
+        list.stream().forEach(o-> System.out.println(o.getName()));
+    }
+
+    private static void dateTest() {
+        Date date = new Date();
+        String str = DateUtils.formatDate(date);
+        log.info(str);
+
+        String startTime = "2020-12-7 13:11:10";
+        Date startCur = DateUtils.strToDate(startTime);
+        log.info(DateUtils.formatDate(startCur));
+
+    }
+
+    /**
+     * 排序
+     */
+    private static void streamSort() {
+        List<String> list = Arrays.asList("2", "1", "3");
+        List<Integer> list1 = list.stream().map(o -> Integer.valueOf(o)).sorted().collect(Collectors.toList());
+        log.info(list1.toString());
+    }
+
+    private static void ofStream() {
+        List<Integer> list = new ArrayList<>(10000);
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
+
+        //获取开始时间
+        long startTimeTo = System.currentTimeMillis();
+        //测试的代码段
+        list.stream().forEach(o -> {
+            System.out.println(o);
+        });
+        //获取结束时间
+        long endTimeTo = System.currentTimeMillis();
+
+        int num = 0;
+        //获取开始时间
+        long startTime = System.currentTimeMillis();
+        //测试的代码段
+        for (Integer integer : list) {
+            System.out.println(integer);
+        }
+        //获取结束时间
+        long endTime = System.currentTimeMillis();
+        System.out.println("程序运行时间： " + num + "  " + (endTime - startTime) + "ms");
+        System.out.println("程序运行时间1：" + (endTimeTo - startTimeTo) + "ms");
 
 
     }

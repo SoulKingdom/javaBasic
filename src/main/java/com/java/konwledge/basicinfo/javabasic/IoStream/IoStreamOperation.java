@@ -1,10 +1,17 @@
 package com.java.konwledge.basicinfo.javabasic.IoStream;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.java.konwledge.basicinfo.javabasic.entity.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  *  @dept 上海软件研发中心
@@ -53,7 +60,7 @@ public class IoStreamOperation {
             StringBuilder sb = new StringBuilder();
             if ((num = inputStream.read(bit)) != -1) {
                 sb.append(bit);
-                log.info("数量是："+num+"  数据是:"+ sb.toString());
+                log.info("数量是：" + num + "  数据是:" + sb.toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -63,14 +70,101 @@ public class IoStreamOperation {
     }
 
     public static void main(String[] args) {
-      /*  IoStreamOperation io = new IoStreamOperation();
-        //创建文件流写入
-        io.createFileWrite();
-        io.createFileStream();*/
-        //System.out.println("2020-01-08 09:00:00".compareTo("2020-01-08 00:00:00"));
-       /* String date = "09";
-        System.out.println(Integer.valueOf(date));*/
-        System.out.println(getMD5("yitutech123"));
+
+
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date startTime = sdf.parse("2020-11-03 18:00:01");
+            Date endTime = sdf.parse("2020-11-03 19:00:00");
+            Date visitStart =sdf.parse("2020-11-03 17:45:00");
+            Date visitEnd = sdf.parse("2020-11-03 18:00:00");
+            if ((!startTime.after(visitEnd)) && (!endTime.before(visitStart))) {
+                //时间重叠
+                if(startTime.equals(visitEnd)){
+                    System.out.println("false");
+                }else {
+                    System.out.println("true");
+                }
+
+            }else{
+                System.out.println("false");
+            }
+        }catch (Exception e){
+
+        }
+
+        List<Integer> listA = Lists.newArrayList();
+        listA.add(1);
+        listA.add(6);
+        List<Integer> listB = Lists.newArrayList();
+        listB.add(10);
+        listB.add(2);
+        Map<String, List<Integer>> abMap = Maps.newHashMap();
+        abMap.put("A", listA);
+        abMap.put("B", listB);
+        // 需获取A和B集合中大于5的元素
+        abMap.values().stream().flatMap(num -> num.stream().filter(n -> n > 5)).collect(Collectors.toList())
+                .forEach(System.out::println);
+
+        "1".equals(null);
+        Predicate predicate = (o -> !o.equals("1"));
+        Predicate predicate2 = (o -> !o.equals("2"));
+        predicate.and(predicate2).test("3");
+        predicate.and(predicate2).test("2");
+        List<String> list = Arrays.asList("1", "2", "3", "3");
+        List<String> listNew = new ArrayList<>(list.size());
+        List<Person> personList;
+        List<Person> personList2;
+        personList = init();
+        //去重
+        listNew = list.stream().distinct().collect(Collectors.toList());
+        //对象去重
+        personList2 = personList.stream().distinct().collect(Collectors.toList());
+        //
+        listNew = (List<String>) list.stream().filter(predicate).collect(Collectors.toList());
+        Map<String, List<String>> map = list.stream().collect(Collectors.groupingBy(o -> o));
+        String st = list.stream().collect(Collectors.joining("-"));
+        for (Map.Entry<String, List<String>> entity : map.entrySet()) {
+            log.info(entity.getKey());
+            log.info(entity.getValue().toString());
+        }
+        list = list.stream().peek(o -> System.out.println(o)).collect(Collectors.toList());
+        log.info("forEach的用法输出:");
+        list.stream().forEach(o -> {
+            log.info(o);
+        });
+
+        //数据
+        Integer counSum = list.stream().mapToInt(o -> Integer.parseInt(o)).sum();
+        log.info("统计结果：{}", counSum);
+        log.info(st);
+    }
+
+    private static List<Person> init() {
+        List<Person> list = new ArrayList<>(4);
+        Person person = new Person();
+        person.setName("a");
+        person.setAge("12");
+        Person person2 = new Person();
+        person2.setName("a");
+        Person person3 = new Person();
+        person3.setName("a");
+        person3.setAge("12");
+        Person person4 = new Person();
+        person4.setAge("123");
+        Person person5 = new Person();
+        person5.setName("a");
+        person5.setAge("12");
+        Person person6 = new Person();
+        list.add(person);
+        list.add(person2);
+        list.add(person3);
+        list.add(person4);
+        list.add(person5);
+        list.add(person6);
+        return list;
     }
 
 
