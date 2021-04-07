@@ -1,0 +1,45 @@
+package $!{package.Mapper};
+
+import $!{package.Entity}.$!{entity};
+#set($voPackage=$package.Entity.replace("entity","vo"))
+import $!{voPackage}.$!{entity}VO;
+import java.util.List;
+
+/**
+ * $!{table.comment} Mapper 接口
+ *
+ * @author $!{author}
+ * @since $!{date}
+ */
+#if($!{kotlin})
+interface $!{table.mapperName} : $!{superMapperClass}<$!{entity}>
+#else
+public interface $!{table.mapperName}  {
+
+		/**
+		 * 详情 $!{table.comment}
+		 */
+		$!{entity} selectByid(String id);
+
+		/**
+		 * 分页 $!{table.comment}
+		 */
+		List<$!{entity}> select$!{entity}ByPage($!{entity} param);
+
+		/**
+		 * 新增 $!{table.comment}
+		 */
+		int save$!{entity}($!{entity} param);
+
+		/**
+		 * 修改 $!{table.comment}
+		 */
+		int update$!{entity}ById($!{entity} param);
+
+		/**
+		 * 删除 $!{table.comment}
+		 */
+		int delete$!{entity}Logic(String ids);
+
+}
+#end

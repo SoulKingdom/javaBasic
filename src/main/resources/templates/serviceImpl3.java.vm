@@ -1,0 +1,160 @@
+package $!{package.ServiceImpl};
+
+import com.github.pagehelper.PageInfo;
+import com.neusoft.core.page.PageUtils;
+import com.neusoft.core.restful.AppResponse;
+import com.neusoft.core.exception.ScRuntimeException;
+import com.neusoft.core.exception.ScParameterException;
+import $!{package.Entity}.$!{entity};
+#set($voPackage=$package.Entity.replace("entity","vo"))
+import $!{voPackage}.$!{entity}VO;
+import $!{package.Mapper}.$!{table.mapperName};
+import $!{package.Service}.$!{table.serviceName};
+import com.neusoft.util.StringUtil;
+import com.neusoft.util.Func;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import $!{cfg.wrapperPath}
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+/**
+ * $!{table.comment} 服务实现类
+ *
+ * @author $!{author}
+ * @since $!{date}
+ */
+@Service
+#if($!{kotlin})
+open class $!{table.serviceImplName} : $!{superServiceImplClass}<$!{table.mapperName}, $!{entity}>(), $!{table.serviceName} {
+
+}
+#else
+public class $!{table.serviceImplName}  implements $!{table.serviceName} {
+
+	private static final Logger logger = LoggerFactory.getLogger($!{table.serviceImplName}.class);
+
+
+	@Autowired
+	private $!{entity}Dao $!{table.entityPath}Dao;
+
+	/**
+	 * 详情 $!{table.comment}
+	 */
+	@Override
+	public AppResponse<$!{entity}VO> get$!{entity}Info(String id) {
+		//参数校验
+		checkGet$!{entity}InfoParam(id);
+
+		//业务逻辑
+		$!{entity}VO $!{table.entityPath}VO= null;
+		try {
+			$!{table.entityPath}VO = $!{entity}Wrapper.build().entityVO($!{table.entityPath}Dao.selectByid(id));
+		} catch (Exception e) {
+			logger.error("");
+			throw new  ScRuntimeException();
+		}
+		return AppResponse.data("查询成功",$!{table.entityPath}VO);
+	}
+
+	/**
+	 * 分页 $!{table.comment}
+	 */
+	@Override
+	public AppResponse<PageInfo<List<$!{entity}VO>>> select$!{entity}ByPage($!{entity} $!{table.entityPath}) {
+		//参数校验
+		checkSelect$!{entity}ByPageParam($!{table.entityPath});
+
+		//业务逻辑
+		PageInfo pageInfo = null;
+		try{
+			List<$!{entity}> $!{table.entityPath}List = $!{table.entityPath}Dao.select$!{entity}ByPage($!{table.entityPath});
+			pageInfo = (PageInfo)PageUtils.getPageInfo($!{entity}Wrapper.build().pageEntityToVo($!{table.entityPath}List));
+		} catch (Exception e){
+			logger.error("");
+			throw new  ScRuntimeException();
+		}
+		return AppResponse.data("查询成功", pageInfo);
+	}
+
+	/**
+	 * 新增 $!{table.comment}
+	 */
+	@Override
+	public AppResponse save$!{entity}($!{entity} $!{table.entityPath}) {
+		//参数校验
+		checkSave$!{entity}Param($!{table.entityPath});
+
+		//业务逻辑
+		int result;
+		try{
+			result = $!{table.entityPath}Dao.save$!{entity}($!{table.entityPath});
+		} catch (Exception e){
+			logger.error("");
+			throw new  ScRuntimeException();
+		}
+		return AppResponse.status(result);
+	}
+
+	/**
+	 * 修改 $!{table.comment}
+	 */
+	@Override
+	public AppResponse update$!{entity}ById($!{entity} $!{table.entityPath}) {
+		//参数校验
+		checkupdate$!{entity}ByIdParam($!{table.entityPath});
+
+		//业务逻辑
+		int result;
+		try{
+			result = $!{table.entityPath}Dao.update$!{entity}ById($!{table.entityPath});
+		} catch (Exception e){
+			logger.error("");
+			throw new  ScRuntimeException();
+		}
+		return AppResponse.status(result);
+	}
+
+	/**
+	 * 删除 $!{table.comment}
+	 */
+	@Override
+	public AppResponse delete$!{entity}Logic(String ids) {
+		//业务逻辑
+		int result;
+		try{
+			result = $!{table.entityPath}Dao.delete$!{entity}Logic(ids);
+		} catch (Exception e){
+			logger.error("");
+			throw new  ScRuntimeException();
+		}
+		return AppResponse.status(result);
+	}
+
+	private void checkGet$!{entity}InfoParam(String id) {
+		if(StringUtil.isNullOrEmpty(id)){
+			throw new ScParameterException("ID不能为空");
+		}
+	}
+
+	private void checkSelect$!{entity}ByPageParam($!{entity} $!{table.entityPath}){
+		if(Func.isEmpty($!{table.entityPath})){
+			throw new ScParameterException("参数错误");
+		}
+	}
+
+	private void checkSave$!{entity}Param($!{entity} $!{table.entityPath}){
+		if(Func.isEmpty($!{table.entityPath})){
+			throw new ScParameterException("参数错误");
+		}
+	};
+
+	private void checkupdate$!{entity}ByIdParam($!{entity} $!{table.entityPath}){
+		if(Func.isEmpty($!{table.entityPath})){
+			throw new ScParameterException("参数错误");
+		}
+	};
+}
+#end

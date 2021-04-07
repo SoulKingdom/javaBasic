@@ -1,11 +1,9 @@
 package com.java.konwledge.basicinfo.test;
 
-import com.java.konwledge.basicinfo.util.DateUtils;
+import com.java.konwledge.basicinfo.feature.entity.CalcValueEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -21,30 +19,47 @@ public class test1 {
     public static final Logger logger = LoggerFactory.getLogger(test1.class);
 
     public static void main(String[] args) {
+
+        if (1 == 1) {
+            if (3 == 3) {
+                System.out.println("zhang");
+            }
+        }
+
+
+        if (CalcValueEnum.MATH_CALC_EVEN_NUM.getValue() instanceof Integer) {
+            System.out.println("Math num is Integer");
+        }
+        System.out.println(4 / CalcValueEnum.MATH_CALC_EVEN_NUM.getValue());
+
+        Integer num = 1;
+        System.out.println(num.byteValue());
         String userId = "1";
         List<String> list;
-        Predicate<List> predicate4 = o->Objects.isNull(o) || o.size() == 0;
-        Predicate<String> predicate = (s)->s.length() >0;
-        Predicate<String> predicate2 = (s)->s.equals("1");
-        Predicate<String> predicate3 = (s)->s.equals("2");
+        Predicate<List> predicate4 = o -> Objects.isNull(o) || o.size() == 0;
+        Predicate<String> predicate = (s) -> s.length() > 0;
+        Predicate<String> predicate2 = (s) -> userId.equals(s);
+        Predicate<String> predicate3 = (s) -> s.equals("2");
+
+        predicate2.test("1");
 
         list = new ArrayList<>(1);
-        if(predicate4.test(list)){
+        if (predicate4.test(list)) {
             logger.info("list is null or size = 0");
         }
         list.add("1");
-        if(predicate4.negate().test(list)){
+        if (predicate4.negate().test(list)) {
             logger.info("list is not null and  size != 0");
         }
 
 
-        if(predicate.test(userId)){
-            logger.info("This user result is {}",userId);
+        if (predicate.test(userId)) {
+            logger.info("This user result is {}", userId);
         }
-       if(predicate.and(predicate2).test(userId)){
-           logger.info(userId);
-       }
-        if(predicate.and(predicate3).test(userId)){
+        if (predicate.and(predicate2).test(userId)) {
+            logger.info(userId);
+        }
+        if (predicate.and(predicate3).test(userId)) {
             logger.info(userId);
         }
        /* Integer b = 501;
@@ -54,7 +69,7 @@ public class test1 {
         System.out.println(b == c);
         System.out.println(i == c);
         System.out.println(i == b);*/
-       // String str = DateUtils.getTodayDate();
+        // String str = DateUtils.getTodayDate();
         // time1在time2之后true; time1在time2之前 false
        /* Boolean flag = DateUtils.beforeDate("2020-05-27",DateUtils.getTodayDate());
         System.out.println(str);

@@ -1,1 +1,5 @@
-
+server:
+  port: 9980
+str:
+  demo_str_one: '/zhangsan'
+  demo_str_two: '\lisi'

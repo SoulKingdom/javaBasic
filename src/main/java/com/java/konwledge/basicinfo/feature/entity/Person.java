@@ -32,4 +32,13 @@ public class Person {
         this.classes = classes;
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", classes='" + classes + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

@@ -1,9 +1,12 @@
 package com.java.konwledge.basicinfo.feature;
 
+import com.google.gson.internal.LinkedTreeMap;
+import com.java.konwledge.basicinfo.feature.entity.JsonUtils;
 import com.java.konwledge.basicinfo.feature.entity.Person;
 import com.java.konwledge.basicinfo.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -269,6 +272,45 @@ public class StreamOpera {
      *
      */
     public static void main(String[] args) {
+        // 解析Json
+        String paramJson = "{\"face_image\": {\"content_type\": \""
+                + "jpeg"
+                + "\",\"content\": \""
+                + ""
+                + "\"},\"extra_meta\": \"{\\\"id\\\":\\\""
+                + "223"
+                + "\\\",\\\"name\\\":\\\""
+                + "321"
+                + "\\\"}\"}";
+
+
+        Map<String, Object> maps = JsonUtils.fromJson(paramJson, Map.class);
+
+        LinkedTreeMap<String, String> faceImage = (LinkedTreeMap<String, String>) maps.get("face_image");
+
+        String contentType = faceImage.get("content_type");
+
+        String content = faceImage.get("content");
+
+        String extraMeta = (String) maps.get("extra_meta");
+
+        mapOpera();
+
+        groupList();
+        String str = "123";
+        String stb = str.substring("1".length());
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "10");
+        map.put("a", "9");
+        //分组处理
+        groupList();
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        Date beforeDate = cal.getTime();
+        dateFormat.format(beforeDate);
         //排序方式
         orderedMethod();
         //时间筛选
@@ -301,6 +343,52 @@ public class StreamOpera {
 
     }
 
+    private static void mapOpera() {
+        Person person = new Person();
+
+        setPerson(person);
+        System.out.println(person);
+
+        Map<String, String> headers = new HashMap<>(3);
+        setHeaders("张三", headers);
+
+        for (Map.Entry<String, String> stringStringEntry : headers.entrySet()) {
+            System.out.println(stringStringEntry.getKey());
+        }
+
+    }
+
+    private static void setHeaders(String token, Map<String, String> headers) {
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/json");
+        headers.put("token", token);
+    }
+
+    /**
+     * 分组处理重复数据
+     */
+    private static void groupList() {
+        List<Person> list = new ArrayList<>(2);
+        list.add(new Person("zjy", "1503", 11));
+        list.add(new Person("zjy", "1503", 10));
+        list.add(new Person("zjy", "1503", 12));
+        // list的值进行处理
+        for (Person person : list) {
+            person = setPerson(person);
+        }
+
+        for (Person person : list) {
+            System.out.println(person);
+        }
+        Map<String, List<Person>> listPerson = list.stream().collect(Collectors.groupingBy(Person::getName));
+        System.out.println("===========");
+    }
+
+    private static Person setPerson(Person person) {
+        person.setName("cs");
+        return person;
+    }
+
     /**
      * 排序方法的使用
      */
@@ -310,12 +398,12 @@ public class StreamOpera {
         list.add(new Person("zjy", "1503", 10));
         list.add(new Person("zxy", "1503", 12));
 
-        list = list.stream().sorted((x,y)->{
+        list = list.stream().sorted((x, y) -> {
             int ageX = x.getAge();
             int agey = y.getAge();
-           return ageX - agey;
+            return ageX - agey;
         }).collect(Collectors.toList());
-        list.stream().forEach(o-> System.out.println(o.getName()));
+        list.stream().forEach(o -> System.out.println(o.getName()));
     }
 
     private static void dateTest() {

@@ -1,0 +1,33 @@
+#set($wrapperPackage=$package.Entity.replace("entity","wrapper"))
+package $!{wrapperPackage};
+
+import com.neusoft.util.beans.BeanUtil;
+import $!{package.Entity}.$!{entity};
+#set($voPackage=$package.Entity.replace("entity","vo"))
+import $!{voPackage}.$!{entity}VO;
+
+import java.util.List;
+
+/**
+ * $!{table.comment}包装类,返回视图层所需的字段
+ *
+ * @author $!{author}
+ * @since $!{date}
+ */
+public class $!{entity}Wrapper  {
+
+    public static $!{entity}Wrapper build() {
+        return new $!{entity}Wrapper();
+    }
+
+	public $!{entity}VO entityVO($!{entity} $!{table.entityPath}) {
+		$!{entity}VO $!{table.entityPath}VO = BeanUtil.copy($!{table.entityPath}, $!{entity}VO.class);
+
+		return $!{table.entityPath}VO;
+	}
+
+	public List<$!{entity}VO> pageEntityToVo(List<$!{entity}> $!{table.entityPath}List) {
+		return null;
+	}
+
+}
